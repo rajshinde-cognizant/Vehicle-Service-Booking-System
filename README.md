@@ -174,3 +174,52 @@ src/
 ```
 
 
+# REST API Endpoints for Vehicle Service Booking System
+
+## 1. User Management
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/users/register` | Register a new user |
+| `POST` | `/api/users/login` | Authenticate user |
+| `GET`  | `/api/users/{id}` | Get user profile |
+| `PUT`  | `/api/users/{id}` | Update user profile |
+| `GET`  | `/api/users/{id}/history` | View service history |
+
+## 2. Vehicle Management
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/vehicles` | Register a new vehicle |
+| `GET`  | `/api/vehicles` | Get all vehicles for a user |
+| `GET`  | `/api/vehicles/{id}` | Get vehicle details |
+| `PUT`  | `/api/vehicles/{id}` | Update vehicle details |
+| `DELETE` | `/api/vehicles/{id}` | Delete a vehicle |
+
+## 3. Service Booking
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/bookings` | Create a new booking |
+| `GET`  | `/api/bookings` | Get all bookings for a user |
+| `GET`  | `/api/bookings/{id}` | Get booking details |
+| `PUT`  | `/api/bookings/{id}` | Update booking (reschedule/cancel) |
+| `GET`  | `/api/bookings/{id}/status` | Track booking status |
+
+## 4. Service Center Management
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/service-centers` | Add a new service center |
+| `GET`  | `/api/service-centers` | List all service centers |
+| `GET`  | `/api/service-centers/{id}` | Get service center details |
+| `POST` | `/api/service-centers/{id}/mechanics` | Add mechanic to a center |
+| `GET`  | `/api/service-centers/{id}/mechanics` | List mechanics in a center |
+| `POST` | `/api/service-types` | Define a new service type |
+| `GET`  | `/api/service-types` | List all service types |
+
+## 5. Invoice and Billing
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/invoices` | Generate invoice for a booking |
+| `GET`  | `/api/invoices` | Get all invoices for a user |
+| `GET`  | `/api/invoices/{id}` | Get invoice details |
+| `PUT`  | `/api/invoices/{id}/status` | Update payment status |
+| `GET`  | `/api/invoices/{id}/download` | Download invoice PDF |
+
