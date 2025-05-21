@@ -4,7 +4,8 @@ This plan assumes a Scrum-based Agile approach, which is well-suited for iterati
 # Overview
 
 ## 1. Introduction
-This document details the Agile methodology for the Vehicle Service Booking System project. The project enables users to book vehicle service appointments, track service history, and manage service center operations efficiently. The development will be done using Java Spring Boot for the backend and Angular/React for the frontend.
+This document details the Low-Level Design (LLD) for a Vehicle Service Booking System, which enables users to book vehicle service appointments, track service history, and manage service center operations efficiently.
+This design supports Java(Spring Boot) framework for backend development and React framework for frontend development.
 
 ## 2. Module Overview
 
