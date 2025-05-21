@@ -28,7 +28,7 @@ Generates invoices for completed services and manages payment records.
 
 ### 3.1 Architectural Style
 - **Frontend**: React
-- **Backend**: REST API-based
+- **Backend**: REST API-based, Spring Boot
 - **Database**: Relational (MySQL/PostgreSQL/SQL Server)
 
 ### 3.2 Component Interaction
