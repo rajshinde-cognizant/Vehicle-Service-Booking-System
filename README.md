@@ -1,98 +1,101 @@
 # Vehicle-Service-Booking-System
 This plan assumes a Scrum-based Agile approach, which is well-suited for iterative development and cross-functional collaboration.
 
-# Agile Methodology for Vehicle Service Booking System
+# Overview
 
 ## 1. Introduction
 This document details the Agile methodology for the Vehicle Service Booking System project. The project enables users to book vehicle service appointments, track service history, and manage service center operations efficiently. The development will be done using Java Spring Boot for the backend and Angular/React for the frontend.
 
-## 2. Team Roles
-- **Product Owner**: Defines features, prioritizes backlog, and ensures business value.
-- **Scrum Master**: Facilitates Agile practices, removes blockers.
-- **Development Team**: Backend (Java Spring Boot), Frontend (React), QA.
+## 2. Module Overview
 
-## 3. Sprint Plan (6 Sprints Total)
-### Sprint 1: Project Setup & User Module Start
-**Goal**: Establish project infrastructure and begin user management module.
-- **All**: Project setup (Git, DB schema)
-- **A**: User registration, login, profile update (backend + frontend)
-- **B**: Vehicle entity & DB setup
-- **C**: Booking entity & DB setup
-- **D**: Service center entity & DB setup
+### 2.1 User Management
+Handles customer registration, profile management, and service history.
 
-**User Stories**:
-- As a user, I want to register and log in securely.
-- As a user, I want to update my profile.
+### 2.2 Vehicle Management
+Manages customer vehicles including model, make, and registration details.
 
-### Sprint 2: Vehicle Module & User History
-**Goal**: Implement vehicle management and user service history.
-- **A**: View service history
-- **B**: Add/view/update vehicles (backend + frontend)
-- **C**: Booking logic (create, cancel)
-- **D**: Add service types, mechanics
+### 2.3 Service Booking
+Allows users to schedule service appointments and track their status.
 
-**User Stories**:
-- As a user, I want to view my service history.
-- As a user, I want to register my vehicle.
-- As a user, I want to view and update vehicle details.
+### 2.4 Service Center Management
+Manages service center availability, mechanics, and service types.
 
-### Sprint 3: Booking Module & Service Center UI
-**Goal**: Develop booking functionality and service center management UI.
-- **A**: Integrate user profile with bookings
-- **B**: Link vehicles to users
-- **C**: Booking status tracking
-- **D**: Service center UI (list, filter, assign mechanics)
+### 2.5 Invoice and Billing
+Generates invoices for completed services and manages payment records.
 
-**User Stories**:
-- As a user, I want to book a service appointment.
-- As a user, I want to cancel or reschedule a booking.
-- As a user, I want to track the status of my service.
-- As an admin, I want to manage service centers and mechanics.
+## 3. Architecture Overview
 
-### Sprint 4: Integration & Testing
-**Goal**: Integrate all modules and perform thorough testing.
-- **All**: Integrate modules (User ↔ Vehicle ↔ Booking ↔ Service Center)
-- **All**: Write unit tests, API tests
-- **All**: Fix bugs, improve UI/UX
+### 3.1 Architectural Style
+- **Frontend**: React
+- **Backend**: REST API-based
+- **Database**: Relational (MySQL/PostgreSQL/SQL Server)
 
-**User Stories**:
-- As a user, I want a seamless experience across all functionalities.
+### 3.2 Component Interaction
+- The frontend communicates with the backend REST APIs.
+- The backend processes requests, interacts with the database, and sends responses.
+- All user interactions and bookings are performed through the web interface.
+## 4. Module-Wise Design
 
-### Sprint 5: Invoice & Billing (Collaborative)
-**Goal**: Implement invoice generation and payment management.
-- **All**: Implement invoice generation, payment status
-- **All**: Link invoices to bookings and users
-- **All**: Frontend for invoice viewing and download
+### 4.1 User Management Module
+**Features**
+- User registration, login, and profile updates
+- View service booking history
 
-**User Stories**:
-- As a user, I want to view and download invoices.
-- As an admin, I want to manage payment records.
+**Entities**
+- User: UserID, Name, Email, Phone, Address, PasswordHash
 
-### Sprint 6: Final QA, Polish & Deployment
-**Goal**: Finalize the project with end-to-end testing, performance tuning, and deployment.
-- **All**: End-to-end testing
-- **All**: Performance tuning
-- **All**: Final documentation
-- **All**: Deployment to staging/production
+### 4.2 Vehicle Management Module
+**Features**
+- Register and manage vehicles
+- Link vehicles to user profiles
 
-**User Stories**:
-- As a user, I want a polished and reliable system.
-- As an admin, I want the system to be ready for production.
-## 4. Module Assignments
-| Member | Assigned Module |
-|--------|------------------|
-| A      | User Management  |
-| B      | Vehicle Management |
-| C      | Service Booking  |
-| D      | Service Center Management |
-| All    | Invoice & Billing (Final Sprint) |
+**Entities**
+- Vehicle: VehicleID, UserID, Make, Model, Year, RegistrationNumber
 
-## 5. Agile Ceremonies
-- **Daily Standups**: 15 mins to sync progress
-- **Sprint Planning**: Assign tasks per module
-- **Sprint Review**: Demo completed features
-- **Sprint Retrospective**: Discuss improvements
+### 4.3 Service Booking Module
+**Features**
+- Book service appointments
+- Cancel or reschedule bookings
+- Track service status
 
+**Entities**
+- Booking: BookingID, UserID, VehicleID, ServiceCenterID, Date, TimeSlot, Status
+
+### 4.4 Service Center Management Module
+**Features**
+- Manage service centers and mechanics
+- Define available service types
+
+**Entities**
+- ServiceCenter: ServiceCenterID, Name, Location, Contact
+- Mechanic: MechanicID, ServiceCenterID, Name, Expertise
+- ServiceType: ServiceTypeID, Description, Price
+
+### 4.5 Invoice and Billing Module
+**Features**
+- Generate invoice upon service completion
+- Manage and record payments
+
+**Entities**
+- Invoice: InvoiceID, BookingID, ServiceTypeID, TotalAmount, PaymentStatus
+
+## 5. Deployment Strategy
+
+### 5.1 Local Deployment
+- Angular/React for frontend (via local dev servers)
+- Spring Boot/ASP.NET Core for backend (via localhost server)
+- Local relational DB setup for development (MySQL/PostgreSQL/SQL Server)
+
+## 6. Database Design
+| Table Name | Primary Key | Foreign Keys |
+|------------|-------------|--------------|
+| User       | UserID      | -            |
+| Vehicle    | VehicleID   | UserID       |
+| Booking    | BookingID   | UserID, VehicleID, ServiceCenterID |
+| ServiceCenter | ServiceCenterID | - |
+| Mechanic   | MechanicID  | ServiceCenterID |
+| ServiceType | ServiceTypeID | - |
+| Invoice    | InvoiceID   | BookingID, ServiceTypeID |
 ## 6. Tools Used
 - **IDE**: Visual Studio Code
 - **Version Control**: Git (GitHub)
