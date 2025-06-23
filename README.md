@@ -9,6 +9,32 @@ This design supports Java(Spring Boot) framework for backend development and Rea
 
 ## 2. Module Overview
 
+```mermaid
+graph TD
+    A[React Frontend] --> B[API Gateway]
+
+    subgraph Service Discovery
+        C[Eureka Server]
+    end
+
+    B -- Routes Traffic --> D[User Service]
+    B -- Routes Traffic --> E[Vehicle Service]
+    B -- Routes Traffic --> F[Booking Service]
+    B -- Routes Traffic --> G[Service Center Service]
+    B -- Routes Traffic --> H[Invoice Service]
+
+    D -- Registers With --> C
+    E -- Registers With --> C
+    F -- Registers With --> C
+    G -- Registers With --> C
+    H -- Registers With --> C
+
+    F -- Feign Client (User, Vehicle, SC) --> D
+    F -- Feign Client (User, Vehicle, SC) --> E
+    F -- Feign Client (User, Vehicle, SC) --> G
+    H -- Feign Client (Booking, SC) --> F
+    H -- Feign Client (Booking, SC) --> G
+```
 ### 2.1 User Management
 Handles customer registration, profile management, and service history.
 
