@@ -35,6 +35,7 @@ graph TD
     H -- Feign Client (Booking, SC) --> F
     H -- Feign Client (Booking, SC) --> G
 ```
+
 ### 2.1 User Management
 Handles customer registration, profile management, and service history.
 
