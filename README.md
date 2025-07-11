@@ -1,230 +1,287 @@
-# Vehicle-Service-Booking-System
-This plan assumes a Scrum-based Agile approach, which is well-suited for iterative development and cross-functional collaboration.
+# 🚗 Vehicle Service Booking System (VSBS)
 
-# Overview
+## 📑 Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Architecture Diagram](#architecture-diagram)
+- [Module Overview](#module-overview)
+  - [User Management Module](#user-management-module)
+  - [Vehicle Management Module](#vehicle-management-module)
+  - [Service Booking Module](#service-booking-module)
+  - [Service Center Management Module](#service-center-management-module)
+  - [Invoice and Billing Module](#invoice-and-billing-module)
+- [Setup Instructions](#setup-instructions)
+- [Testing](#testing)
+- [Deployment](#deployment)
+- [Contributors](#contributors)
+- [License](#license)
 
-## 1. Introduction
-This document details the Low-Level Design (LLD) for a Vehicle Service Booking System, which enables users to book vehicle service appointments, track service history, and manage service center operations efficiently.
-This design supports Java(Spring Boot) framework for backend development and React framework for frontend development.
+---
 
-## 2. Module Overview
+## Overview
+
+The **Vehicle Service Booking System** is a full-stack web application that allows users to:
+- Book vehicle service appointments,
+- Track service history and status,
+- Manage service centers and available services, and
+- Handle billing and invoice generation.
+
+It supports modular microservice architecture and is developed using Java (Spring Boot) or ASP.NET Core for backend, and Angular or React for the frontend. The database layer is built on top of MySQL/PostgreSQL.
+
+---
+
+## Features
+
+- **User Management**: Registration, login, profile, and service history
+- **Vehicle Management**: Manage vehicles linked to user accounts
+- **Service Booking**: Book, cancel, reschedule services and track status
+- **Service Center Management**: Manage mechanics and service types
+- **Billing and Invoicing**: Generate and track invoices and payments
+
+---
+
+## Tech Stack
+
+- **Backend**: Java Spring Boot 
+- **Frontend**: React.js   
+- **Database**: MySQL   
+- **API Documentation**: Swagger
+- **Authentication** : JWT    
+
+---
+
+## Architecture Diagram
+
 ![image](https://github.com/user-attachments/assets/5509de9b-73bc-42dc-89d2-4d68c3b9b37e)
 
-### 2.1 User Management
-Handles customer registration, profile management, and service history.
+---
+## Module Overview
 
-### 2.2 Vehicle Management
-Manages customer vehicles including model, make, and registration details.
+Each module is designed to be modular and self-contained, managing its own responsibilities and data for better scalability, maintainability, and ease of deployment.
 
-### 2.3 Service Booking
-Allows users to schedule service appointments and track their status.
+---
 
-### 2.4 Service Center Management
-Manages service center availability, mechanics, and service types.
+## 🚀 Main Modules
 
-### 2.5 Invoice and Billing
-Generates invoices for completed services and manages payment records.
+These are the core modules essential for running the Vehicle Service Booking System.
 
-## 3. Architecture Overview
+### [User Management Module](./backend/UserService/README.md)
+- Handles user registration, login, profile updates, and service history tracking.
+- **Entities**: `User (UserID, Name, Email, Phone, Address, PasswordHash)`
 
-### 3.1 Architectural Style
-- **Frontend**: React
-- **Backend**: REST API-based, Spring Boot
-- **Database**: Relational (MySQL/PostgreSQL/SQL Server)
+---
 
-### 3.2 Component Interaction
-- The frontend communicates with the backend REST APIs.
-- The backend processes requests, interacts with the database, and sends responses.
-- All user interactions and bookings are performed through the web interface.
-## 4. Module-Wise Design
+### [Vehicle Management Module](./backend/VehicleService/README.md)
+- Allows users to register, update, and manage their vehicles, linked to their profile.
+- **Entities**: `Vehicle (VehicleID, UserID, Make, Model, Year, RegistrationNumber)`
 
-### 4.1 User Management Module
-**Features**
-- User registration, login, and profile updates
-- View service booking history
+---
 
-**Entities**
-- User: UserID, Name, Email, Phone, Address, PasswordHash
+### [Service Booking Module](./backend/BookingService/README.md)
+- Facilitates service appointment booking, rescheduling, cancellation, and status tracking.
+- **Entities**: `Booking (BookingID, UserID, VehicleID, ServiceCenterID, Date, TimeSlot, Status)`
 
-### 4.2 Vehicle Management Module
-**Features**
-- Register and manage vehicles
-- Link vehicles to user profiles
+---
 
-**Entities**
-- Vehicle: VehicleID, UserID, Make, Model, Year, RegistrationNumber
+### [Service Center Management Module](./backend/ServiceCenterService/README.md)
+- Manages service centers, assigned mechanics, and available service types.
+- **Entities**:
+  - `ServiceCenter (ServiceCenterID, Name, Location, Contact)`
+  - `Mechanic (MechanicID, ServiceCenterID, Name, Expertise)`
+  - `ServiceType (ServiceTypeID, Description, Price)`
 
-### 4.3 Service Booking Module
-**Features**
-- Book service appointments
-- Cancel or reschedule bookings
-- Track service status
+### [Invoice and Billing Module](./backend/InvoiceService/README.md)
+- Generates invoices after service completion and tracks payment status.
+- **Entities**: `Invoice (InvoiceID, BookingID, ServiceTypeID, TotalAmount, PaymentStatus)`
 
-**Entities**
-- Booking: BookingID, UserID, VehicleID, ServiceCenterID, Date, TimeSlot, Status
+---
 
-### 4.4 Service Center Management Module
-**Features**
-- Manage service centers and mechanics
-- Define available service types
+## 🔧 Supporting Modules
 
-**Entities**
-- ServiceCenter: ServiceCenterID, Name, Location, Contact
-- Mechanic: MechanicID, ServiceCenterID, Name, Expertise
-- ServiceType: ServiceTypeID, Description, Price
+These modules enhance the core functionality and improve scalability and system reliability.
 
-### 4.5 Invoice and Billing Module
-**Features**
-- Generate invoice upon service completion
-- Manage and record payments
+### [Auth Service]
+- Manages user authentication and token-based login using JWT.
+- **Entities**: `UserCredentials (UserID, Email, PasswordHash, Role)`
 
-**Entities**
-- Invoice: InvoiceID, BookingID, ServiceTypeID, TotalAmount, PaymentStatus
+---
 
-## 5. Deployment Strategy
+### API Gateway
+- Acts as the unified entry point to route incoming client requests to microservices.
+- Handles logging, CORS, rate limiting, and cross-cutting concerns.
+- 📘 **Swagger API Docs**: [`http://localhost:8080/swagger-ui.html`](http://localhost:8080/swagger-ui.html)
 
-### 5.1 Local Deployment
-- Angular/React for frontend (via local dev servers)
-- Spring Boot/ASP.NET Core for backend (via localhost server)
-- Local relational DB setup for development (MySQL/PostgreSQL/SQL Server)
+---
 
-## 6. Database Design
-| Table Name | Primary Key | Foreign Keys |
-|------------|-------------|--------------|
-| User       | UserID      | -            |
-| Vehicle    | VehicleID   | UserID       |
-| Booking    | BookingID   | UserID, VehicleID, ServiceCenterID |
-| ServiceCenter | ServiceCenterID | - |
-| Mechanic   | MechanicID  | ServiceCenterID |
-| ServiceType | ServiceTypeID | - |
-| Invoice    | InvoiceID   | BookingID, ServiceTypeID |
-## 6. Tools Used
-- **IDE**: Visual Studio Code
-- **Version Control**: Git (GitHub)
-- **Testing**: Postman, JUnit
-- **Documentation**: VS code
+### Discovery Server (Eureka)
+- Service registry where all microservices register dynamically.
+- Enables inter-service discovery and communication.
+- 🛰️ **Eureka Dashboard**: [`http://localhost:8761`](http://localhost:8761)
 
-## 7. Project Structure Overview
-```
-vehicle-service-booking-system/
-│
-├── backend/
-│   └── spring-boot/                # Java Spring Boot implementation
-│    
-├── frontend/
-│   └── react-app/                  # React frontend
-│
-├── database/
-│   └── schema.sql                  # SQL script for DB schema
-│
-├── docs/
-│   └── LLD.md                      # Low-Level Design document
-│
-└── README.md
-```
-**Backend Structure**
-```
-src/main/java/com/vehiclebooking/
-├── controller/
-│   ├── UserController.java
-│   ├── VehicleController.java
-│   ├── BookingController.java
-│   ├── ServiceCenterController.java
-│   └── InvoiceController.java
-│
-├── service/
-│   ├── UserService.java
-│   ├── VehicleService.java
-│   ├── BookingService.java
-│   ├── ServiceCenterService.java
-│   └── InvoiceService.java
-│
-├── model/
-│   ├── User.java
-│   ├── Vehicle.java
-│   ├── Booking.java
-│   ├── ServiceCenter.java
-│   ├── Mechanic.java
-│   ├── ServiceType.java
-│   └── Invoice.java
-│
-├── repository/
-│   ├── UserRepository.java
-│   ├── VehicleRepository.java
-│   ├── BookingRepository.java
-│   ├── ServiceCenterRepository.java
-│   └── InvoiceRepository.java
-│
-└── VehicleBookingApplication.java
+---
+
+
+## Setup Instructions
+
+### 🛠️ Prerequisites
+- Java 21  
+- Maven  
+- Node.js (for React frontend)  
+- MySQL  
+
+### 🔧 Local Setup
+
+#### 1. Clone the Repository
+
+```bash
+git clone <repository-url>
+cd vehicle-service-booking-system
+````
+
+---
+
+## 🧱 Database Setup
+
+You can initialize all required MySQL databases using either a shell script or a SQL file.
+
+### 📂 Files
+
+* [`setup-databases.sh`](./database/setup-databases.sh): Shell script to create all required databases.
+* [`setup-databases.sql`](./database/setup-databases.sql): SQL file to create and clean tables across all databases.
+
+---
+
+### ⚙️ Option 1: Shell Script
+
+Run the shell script (you will be prompted for your MySQL root password):
+
+```bash
+chmod +x database/setup-databases.sh
+./database/setup-databases.sh
 ```
 
-**Frontend Structure**
-```
-src/
-├── components/
-│   └── UserDashboard.jsx
-│   └── VehicleManagement.jsx
-│   └── BookingForm.jsx
-│   └── ServiceCenterViewer.jsx
-│   └── InvoiceHistory.jsx
-│
-├── services/
-│   └── userService.js
-│   └── vehicleService.js
-│   └── bookingService.js
-│   └── serviceCenterService.js
-│   └── invoiceService.js
-│
-└── App.js
+---
+
+### 🗃️ Option 2: SQL File
+
+Execute the SQL file directly in your MySQL client:
+
+```bash
+mysql -u root -p < database/setup-databases.sql
 ```
 
+---
 
-# REST API Endpoints for Vehicle Service Booking System
+Once complete, your system will have the following databases ready:
 
-## 1. User Management
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/users/register` | Register a new user |
-| `POST` | `/api/users/login` | Authenticate user |
-| `GET`  | `/api/users/{id}` | Get user profile |
-| `PUT`  | `/api/users/{id}` | Update user profile |
-| `GET`  | `/api/users/{id}/history` | View service history |
+* `authdb`
+* `userdb`
+* `vehicledb`
+* `bookingdb`
+* `centerdb`
+* `invoicedb`
 
-## 2. Vehicle Management
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/vehicles` | Register a new vehicle |
-| `GET`  | `/api/vehicles` | Get all vehicles for a user |
-| `GET`  | `/api/vehicles/{id}` | Get vehicle details |
-| `PUT`  | `/api/vehicles/{id}` | Update vehicle details |
-| `DELETE` | `/api/vehicles/{id}` | Delete a vehicle |
+> 🔐 **Note**: Ensure your MySQL user has permission to create and modify these databases.
 
-## 3. Service Booking
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/bookings` | Create a new booking |
-| `GET`  | `/api/bookings` | Get all bookings for a user |
-| `GET`  | `/api/bookings/{id}` | Get booking details |
-| `PUT`  | `/api/bookings/{id}` | Update booking (reschedule/cancel) |
-| `GET`  | `/api/bookings/{id}/status` | Track booking status |
+---
 
-## 4. Service Center Management
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/service-centers` | Add a new service center |
-| `GET`  | `/api/service-centers` | List all service centers |
-| `GET`  | `/api/service-centers/{id}` | Get service center details |
-| `POST` | `/api/service-centers/{id}/mechanics` | Add mechanic to a center |
-| `GET`  | `/api/service-centers/{id}/mechanics` | List mechanics in a center |
-| `POST` | `/api/service-types` | Define a new service type |
-| `GET`  | `/api/service-types` | List all service types |
+## ⚙️ Configure Backend
 
-## 5. Invoice and Billing
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/invoices` | Generate invoice for a booking |
-| `GET`  | `/api/invoices` | Get all invoices for a user |
-| `GET`  | `/api/invoices/{id}` | Get invoice details |
-| `PUT`  | `/api/invoices/{id}/status` | Update payment status |
-| `GET`  | `/api/invoices/{id}/download` | Download invoice PDF |
+Update the database connection properties in:
 
+`backend/src/main/resources/application.properties`
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/vsbsdb
+spring.datasource.username=your_db_username
+spring.datasource.password=your_db_password
+spring.jpa.hibernate.ddl-auto=update
+```
+
+---
+
+## 🚀 Run the Application
+
+#### 1. Start Backend
+
+```bash
+cd backend
+mvn spring-boot:run
+```
+
+#### 2. Start Frontend
+
+```bash
+cd frontend
+npm install
+npm start
+```
+
+---
+
+## 🌐 Access the Application
+
+* **Frontend**: [http://localhost:3000](http://localhost:3000)
+* **Backend APIs**: [http://localhost:8080/api](http://localhost:8080/api)
+
+---
+
+## Testing
+
+Run backend unit tests:
+
+```bash
+mvn test
+```
+
+Test APIs using Postman or access Swagger UI at:
+
+```
+http://localhost:8080/swagger-ui.html
+```
+
+---
+
+## Deployment
+
+#### 1. Build the Application
+
+```bash
+mvn clean package
+```
+
+#### 2. Run the JAR File
+
+```bash
+java -jar target/vsbs-1.0-SNAPSHOT.jar
+```
+
+#### 3. Set Production Environment Variables
+
+```bash
+export SPRING_PROFILES_ACTIVE=prod
+export DATABASE_URL=jdbc:mysql://<production-db-url>:3306/vsbsdb
+export DATABASE_USERNAME=your_db_username
+export DATABASE_PASSWORD=your_db_password
+```
+
+#### 4. Monitor Logs
+
+```bash
+tail -f logs/vsbs-production.log
+```
+
+---
+
+## Contributors
+- Siddhi Kate
+- Rajvardhan Shinde
+- Shruti Patil
+
+---
+
+## License
+
+This project is licensed under the MIT License.  
+See the [LICENSE](./LICENSE) file for details.
