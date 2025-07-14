@@ -82,7 +82,7 @@ src/
 ## Module Architecture Diagram
 
 ```mermaid
-flowchart TD
+flowchart LR
   A[/api/invoices/] --> B[InvoiceController]
   B --> C[InvoiceService]
   C --> D[InvoiceRepository]
@@ -114,7 +114,6 @@ _This diagram illustrates the layered architecture:_
 - Data access is handled by InvoiceRepository
 - Data is persisted to a MySQL database
 - The service is registered with Eureka for discovery
----
 
 ## Component Diagram
 
@@ -145,6 +144,8 @@ flowchart LR
   A2 -->|HTTP/REST| B1
   B1 -->|Calls| B2
   B2 -->|Calls| B3
+  B3 -->|Manages| C1
+
 
   B1 ---|uses| D1
   B3 ---|maps to| D2
