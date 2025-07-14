@@ -192,7 +192,7 @@ sequenceDiagram
 The User Service provides interactive API documentation using Swagger.
 
 ### Access Swagger UI
-Swagger UI for User Service
+Swagger UI for Invoice Service
     - http://localhost:8086/swagger-ui/index.html
 
 
