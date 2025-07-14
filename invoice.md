@@ -5,15 +5,16 @@
 - Rajvardhan Shinde
 
 ## 📚 Table of Contents
-- Overview
-- Features
-- Folder Structure
-- REST API Endpoints
-- Data Model
-- Module Architecture Diagram
-- Component Diagram
-- Sequence Diagram
-- Run Locally
+- [Overview](#overview)
+- [Features](#features)
+- [Folder Structure](#folder-structure)
+- [REST API Endpoints](#rest-api-endpoints)
+- [Data Model](#data-model)
+- [Module Architecture Diagram](#module-architecture-diagram)
+- [Component Diagram](#component-diagram)
+- [Sequence Diagram](#sequence-diagram)
+- [Swagger Documentation](#swagger-documentation)
+- [Run Locally](#run-locally)
 
 ---
 
@@ -85,10 +86,11 @@ flowchart TD
   A[/api/invoices/] --> B[InvoiceController]
   B --> C[InvoiceService]
   C --> D[InvoiceRepository]
-  D --> E[(invoice_db<br>H2 Database)]
+  D --> E[(invoice_db<br>MySQL Database)]
   C --> F[FeignClient: BookingService]
   C --> G[FeignClient: ServiceCenterService]
 
+  %% Color Scheme Styling
   classDef endpoint fill:#cce5ff,stroke:#339af0,color:#003566
   classDef controller fill:#ffe8cc,stroke:#ff922b,color:#7f4f24
   classDef service fill:#d3f9d8,stroke:#51cf66,color:#1b4332
@@ -104,6 +106,14 @@ flowchart TD
   class F,G feign
 ```
 
+_This diagram illustrates the layered architecture:_
+
+- API Gateway routes requests
+- InvoiceController handles HTTP requests
+- Business logic sits in InvoiceService
+- Data access is handled by InvoiceRepository
+- Data is persisted to a MySQL database
+- The service is registered with Eureka for discovery
 ---
 
 ## Component Diagram
@@ -124,7 +134,7 @@ flowchart LR
     B3[InvoiceRepository]
   end
 
-  subgraph Database [H2 Database]
+  subgraph Database [MySQL Database]
     direction TB
     C1[(Invoice Table)]
   end
@@ -135,7 +145,6 @@ flowchart LR
   A2 -->|HTTP/REST| B1
   B1 -->|Calls| B2
   B2 -->|Calls| B3
-  B3 -->|ORM / JDBC| C1
 
   B1 ---|uses| D1
   B3 ---|maps to| D2
@@ -178,6 +187,13 @@ sequenceDiagram
   C-->>G: Invoice Created
   G-->>UI: 201 Created (InvoiceDto)
 ```
+## Swagger Documentation
+The User Service provides interactive API documentation using Swagger.
+
+### Access Swagger UI
+Swagger UI for User Service
+    - http://localhost:8086/swagger-ui/index.html
+
 
 ---
 
